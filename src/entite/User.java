@@ -2,16 +2,26 @@ package entite;
 
 import java.sql.Date;
 
+import framework.Annotation.NotNull;
+
 public class User {
     Integer id;
     String nom, prenom;
     Date dateNaissance;
+
+    @NotNull
     String login;
+
+    @NotNull
     String mdp;
-    Role role;
+    Integer role;
 
     //==============================================
-    public User(Integer id, String nom, String prenom, Date dateNaissance, String login, String mdp, Role role) {
+    public User(String login, String mdp) {
+        this.login = login;
+        this.mdp = mdp;
+    }
+    public User(Integer id, String nom, String prenom, Date dateNaissance, String login, String mdp, Integer role) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -65,10 +75,10 @@ public class User {
         this.mdp = mdp;
     }
 
-    public Role getRole() {
+    public Integer getRole() {
         return role;
     }
-    public void setRole(Role role) {
+    public void setRole(Integer role) {
         this.role = role;
     }
 }

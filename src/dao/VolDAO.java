@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,45 +13,71 @@ import entite.Vol;
 public class VolDAO {
 
     //==============================================================================
-    public static void insert(Vol vol) throws Exception {
-        Connection connection = null;
+    public static int insert(Connection connection, Vol vol) throws Exception {
+        Boolean estOuvert = false;
         PreparedStatement preparedStatement = null;
+        ResultSet generatedKeys = null;
+        int idVol = -1;
 
         try {
-            connection = db.Connection.getConnectionBDD();
+            if (connection == null) {
+                estOuvert = true;
+                connection = db.Connection.getConnectionBDD();
+            }
             connection.setAutoCommit(false);
-            String sql = "INSERT INTO vol (id_avion, date_depart, duree, heure_reservation_avant_vol, heure_annulation_reservation_avant_vol) VALUES (?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
+            String sql = "INSERT INTO vol (id_avion, date_depart, duree) VALUES (?, ?, ?)";
+            // String sql = "INSERT INTO vol (id_avion, date_depart, duree, heure_reservation_avant_vol, heure_annulation_reservation_avant_vol) VALUES (?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, vol.getAvion());
             preparedStatement.setTimestamp(2, vol.getDateDepart());
             preparedStatement.setDouble(3, vol.getDuree());
-            preparedStatement.setInt(4, vol.getHeureReservationAvantVol());
-            preparedStatement.setInt(5, vol.getHeureAnnulatioReservationAvantVol());
+            // preparedStatement.setInt(4, vol.getHeureReservationAvantVol());
+            // preparedStatement.setInt(5, vol.getHeureAnnulatioReservationAvantVol());
 
-            preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
+
+            if (affectedRows > 0) {
+                generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    idVol = generatedKeys.getInt(1);
+                }
+            }
+
             connection.commit();
+            return idVol;
         }
         catch (Exception e) {
             if(connection != null) connection.rollback();
             throw new Exception(e.getMessage());
         }
         finally {
-            if(preparedStatement != null) preparedStatement.close();
-            if(connection != null) connection.close();
+            try {
+                if (generatedKeys != null) generatedKeys.close();
+                if(preparedStatement != null) preparedStatement.close();
+                if (connection != null && estOuvert) {
+                    connection.close();
+                }
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
+
         }
     }
 
     //==============================================================================
-    public static List<Vol> select() throws Exception {
+    public static List<Vol> select(Connection connection) throws Exception {
+        Boolean estOuvert = false;
         List<Vol> vols = new ArrayList<>();
-
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            connection = db.Connection.getConnectionBDD();
+            if (connection == null) {
+                estOuvert = true;
+                connection = db.Connection.getConnectionBDD();
+            }
             String sql = "SELECT * FROM vol";
             preparedStatement = connection.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
@@ -72,23 +99,32 @@ public class VolDAO {
             throw new Exception("La selection a echoue!");
         }
         finally {
-            if(resultSet != null) resultSet.close();
-            if(preparedStatement != null) preparedStatement.close();
-            if(connection != null) connection.close();
+            try {
+                if(resultSet != null) resultSet.close();
+                if(preparedStatement != null) preparedStatement.close();
+                if (connection != null && estOuvert) {
+                    connection.close();
+                }
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
         return vols;
     }
 
     //==============================================================================
-    public static Vol selectParId(Integer idVol) throws Exception {
+    public static Vol selectParId(Connection connection, Integer idVol) throws Exception {
+        Boolean estOuvert = false;
         Vol vol = null;
-
-        Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
-            connection = db.Connection.getConnectionBDD();
+            if (connection == null) {
+                estOuvert = true;
+                connection = db.Connection.getConnectionBDD();
+            }
             String sql = "SELECT * FROM vol where id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, idVol);
@@ -109,20 +145,30 @@ public class VolDAO {
             throw new Exception("La selection a echoue!");
         }
         finally {
-            if(resultSet != null) resultSet.close();
-            if(preparedStatement != null) preparedStatement.close();
-            if(connection != null) connection.close();
+            try {
+                if(resultSet != null) resultSet.close();
+                if(preparedStatement != null) preparedStatement.close();
+                if (connection != null && estOuvert) {
+                    connection.close();
+                }
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
         return vol;
     }
 
     //==============================================================================
-    public void update(Vol vol, Integer idVol) throws Exception {
-        Connection connection = null;
+    public void update(Connection connection, Vol vol, Integer idVol) throws Exception {
+        Boolean estOuvert = false;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = db.Connection.getConnectionBDD();
+            if (connection == null) {
+                estOuvert = true;
+                connection = db.Connection.getConnectionBDD();
+            }
             String sql = "UPDATE vol SET id_avion = ?, date_depart = ?, duree = ?, heure_reservation_avant_vol = ?, heure_annulation_reservation_avant_vol = ? where id = ?";
             preparedStatement = connection.prepareStatement(sql);
 
@@ -141,18 +187,28 @@ public class VolDAO {
             throw new Exception(e.getMessage());
         }
         finally {
-            if(preparedStatement != null) preparedStatement.close();
-            if(connection != null) connection.close();
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+                if (connection != null && estOuvert) {
+                    connection.close();
+                }
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
     }
 
     //==============================================================================
-    public static void delete(Integer id) throws Exception{
-        Connection connection = null;
+    public static void delete(Connection connection, Integer id) throws Exception{
+        Boolean estOuvert = false;
         PreparedStatement preparedStatement = null;
 
         try {
-            connection = db.Connection.getConnectionBDD();
+            if (connection == null) {
+                estOuvert = true;
+                connection = db.Connection.getConnectionBDD();
+            }
             String sql = "DELETE FROM vol where id = ?";
             preparedStatement = connection.prepareStatement(sql);
 
@@ -165,8 +221,15 @@ public class VolDAO {
             throw new Exception("La suppression a echoue!");
         }
         finally {
-            if(preparedStatement != null) preparedStatement.close();
-            if(connection != null) connection.close();
+            try {
+                if(preparedStatement != null) preparedStatement.close();
+                if (connection != null && estOuvert) {
+                    connection.close();
+                }
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
         }
     }
 }

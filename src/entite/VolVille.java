@@ -1,28 +1,28 @@
 package entite;
 
 public class VolVille {
-    Vol vol;
-    VilleDesservie villeDesservie;
+    Integer vol;
+    Integer villeDesservie;
 
     //==============================================
-    public VolVille(Vol vol, VilleDesservie villeDesservie) {
+    public VolVille(Integer vol, Integer villeDesservie) {
         this.vol = vol;
         this.villeDesservie = villeDesservie;
     }
     public VolVille() {
     }
     //==============================================
-    public Vol getVol() {
+    public Integer getVol() {
         return vol;
     }
-    public void setVol(Vol vol) {
+    public void setVol(Integer vol) {
         this.vol = vol;
     }
 
-    public VilleDesservie getVilleDesservie() {
+    public Integer getVilleDesservie() {
         return villeDesservie;
     }
-    public void setVilleDesservie(VilleDesservie villeDesservie) {
+    public void setVilleDesservie(Integer villeDesservie) {
         this.villeDesservie = villeDesservie;
     }
 }

@@ -1,6 +1,7 @@
 package entite;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Vol {
     Integer id;
@@ -9,6 +10,7 @@ public class Vol {
     Double duree;
     Integer heureReservationAvantVol;
     Integer heureAnnulatioReservationAvantVol;
+    List<VolVille> volVilles;
 
     //==============================================
     public Vol(Integer id, Integer avion, Timestamp dateDepart, Double duree, Integer heureReservationAvantVol,
@@ -63,5 +65,15 @@ public class Vol {
     }
     public void setHeureAnnulatioReservationAvantVol(Integer heureAnnulatioReservationAvantVol) {
         this.heureAnnulatioReservationAvantVol = heureAnnulatioReservationAvantVol;
+    }
+
+    public List<VolVille> getVolVilles() {
+        return volVilles;
+    }
+    public void setVolVilles(List<VolVille> volVilles) {
+        this.volVilles = volVilles;
+    }
+    public void addVille(VolVille volVille) {
+        this.volVilles.add(volVille);
     }
 }
