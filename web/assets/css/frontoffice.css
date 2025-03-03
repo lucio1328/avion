@@ -1,0 +1,178 @@
+/* === FRONT-OFFICE STYLES === */
+:root {
+    --primary-color: #00264d;       /* Deep navy blue */
+    --secondary-color: #0057b8;     /* Aviation blue */
+    --accent-color: #e6b800;        /* Gold accent */
+    --text-color: #1a1a1a;          /* Dark text */
+    --background-color: #f8f9fa;    /* Light gray background */
+    --card-bg: white;               /* White background for cards */
+    --border-radius: 12px;          /* More rounded corners */
+    --transition-speed: 0.4s;       /* Smooth transitions */
+    --shadow: 0 10px 30px rgba(0, 38, 77, 0.15); /* Soft shadow */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === HEADER === */
+.header {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar ul li {
+    position: relative;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: color var(--transition-speed), background var(--transition-speed);
+    border-radius: var(--border-radius);
+}
+
+.navbar ul li a:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+/* === HERO SECTION === */
+.hero {
+    width: 100%;
+    height: 90vh;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    margin-top: 70px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--text-color);
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(230, 184, 0, 0.4);
+}
+
+/* === CARDS === */
+.card-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 320px;
+    text-align: center;
+    transition: transform var(--transition-speed);
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.card-text {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* === FOOTER === */
+.footer {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+    box-shadow: var(--shadow);
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

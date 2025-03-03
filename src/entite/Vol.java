@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Vol {
     Integer id;
-    Integer avion;
+    Avion avion;
     Timestamp dateDepart;
     Double duree;
     Integer heureReservationAvantVol;
@@ -13,7 +13,7 @@ public class Vol {
     List<VolVille> volVilles;
 
     //==============================================
-    public Vol(Integer id, Integer avion, Timestamp dateDepart, Double duree, Integer heureReservationAvantVol,
+    public Vol(Integer id, Avion avion, Timestamp dateDepart, Double duree, Integer heureReservationAvantVol,
             Integer heureAnnulatioReservationAvantVol) {
         this.id = id;
         this.avion = avion;
@@ -32,10 +32,10 @@ public class Vol {
         this.id = id;
     }
 
-    public Integer getAvion() {
+    public Avion getAvion() {
         return avion;
     }
-    public void setAvion(Integer avion) {
+    public void setAvion(Avion avion) {
         this.avion = avion;
     }
 

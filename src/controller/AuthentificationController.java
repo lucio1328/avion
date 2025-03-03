@@ -14,7 +14,6 @@ import framework.Annotation.Param;
 import framework.Annotation.Post;
 import framework.Annotation.Url;
 import service.UserService;
-import util.PasswordUtil;
 
 @Controller
 public class AuthentificationController {
@@ -147,6 +146,21 @@ public class AuthentificationController {
 				}
 			}
 		}
+
+        return modelView;
+    }
+
+    @Url("/logout")
+    public ModelView logout(@Param("session") Session session) {
+        ModelView modelView = new ModelView("index.jsp");
+
+        try {
+            session.delete("user");
+            session.delete("auth");
+        }
+        catch (Exception e) {
+            modelView.add("error", e.getMessage());
+        }
 
         return modelView;
     }

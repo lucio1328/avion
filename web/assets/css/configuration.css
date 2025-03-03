@@ -1,0 +1,74 @@
+.config-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.config-container h2 {
+    color: #333;
+}
+
+/* Champs du formulaire */
+.config-container label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+.config-container .input-field {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Conteneur des boutons (évite d'affecter d'autres boutons) */
+.config-container .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Bouton Retour (spécifique à cette page) */
+.config-container .btn-config-secondary {
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.config-container .btn-config-secondary:hover {
+    background: #0056b3;
+}
+
+/* Bouton Enregistrer (spécifique à cette page) */
+.config-container .btn-config-primary {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.config-container .btn-config-primary:hover {
+    background-color: #218838;
+}
+
+/* Alignement des boutons */
+.config-container .btn-left {
+    margin-right: auto;
+}
+
+.config-container .btn-right {
+    margin-left: auto;
+}

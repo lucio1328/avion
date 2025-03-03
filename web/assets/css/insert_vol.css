@@ -1,0 +1,144 @@
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Conteneur principal */
+.container {
+    max-width: 550px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #2563eb;
+}
+
+/* Formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #374151;
+    display: block;
+}
+
+/* Conteneur des champs pour alignement */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Labels et inputs alignés */
+.form-group label {
+    flex: 1;
+    min-width: 150px;
+}
+
+.form-group input,
+.form-group select {
+    flex: 2;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s;
+    width: 100%;
+}
+
+input:focus, select:focus {
+    border-color: #2563eb;
+}
+
+/* Section des villes */
+#villesContainer {
+    margin-top: 10px;
+}
+
+/* Alignement des champs de ville */
+.ville-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ville-group input {
+    flex: 2;
+}
+
+.ville-group button {
+    flex: 0.5;
+    font-size: 1rem;
+    padding: 8px;
+}
+
+/* Boutons */
+button {
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+    border: none;
+}
+
+/* Bouton Ajouter */
+button[type="submit"] {
+    background: #2563eb;
+    color: white;
+    width: 100%;
+    font-weight: bold;
+}
+
+button[type="submit"]:hover {
+    background: #1e40af;
+}
+
+/* Boutons + et - */
+.bg-green-500, .bg-red-500 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+}
+
+.bg-green-500:hover {
+    background: #047857;
+}
+
+.bg-red-500:hover {
+    background: #b91c1c;
+}
+
+/* Animation sur ajout/suppression */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ville-group {
+    animation: fadeIn 0.3s ease-out;
+}

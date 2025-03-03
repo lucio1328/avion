@@ -8,7 +8,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import entite.Avion;
 import entite.Vol;
+import service.AvionService;
 
 public class VolDAO {
 
@@ -29,7 +31,7 @@ public class VolDAO {
             // String sql = "INSERT INTO vol (id_avion, date_depart, duree, heure_reservation_avant_vol, heure_annulation_reservation_avant_vol) VALUES (?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setInt(1, vol.getAvion());
+            preparedStatement.setInt(1, vol.getAvion().getId());
             preparedStatement.setTimestamp(2, vol.getDateDepart());
             preparedStatement.setDouble(3, vol.getDuree());
             // preparedStatement.setInt(4, vol.getHeureReservationAvantVol());
@@ -90,7 +92,8 @@ public class VolDAO {
                 Integer heureReservationAvantVol = resultSet.getInt("heure_reservation_avant_vol");
                 Integer heureAnnulatioReservationAvantVol = resultSet.getInt("heure_annulation_reservation_avant_vol");
 
-                Vol vol = new Vol(id, idAvion, dateDepart, duree, heureReservationAvantVol, heureAnnulatioReservationAvantVol);
+                Avion avion = AvionService.selectParId(connection, idAvion);
+                Vol vol = new Vol(id, avion, dateDepart, duree, heureReservationAvantVol, heureAnnulatioReservationAvantVol);
 
                 vols.add(vol);
             }
@@ -138,7 +141,8 @@ public class VolDAO {
                 Integer heureReservationAvantVol = resultSet.getInt("heure_reservation_avant_vol");
                 Integer heureAnnulatioReservationAvantVol = resultSet.getInt("heure_annulation_reservation_avant_vol");
 
-                vol = new Vol(id, idAvion, dateDepart, duree, heureReservationAvantVol, heureAnnulatioReservationAvantVol);
+                Avion avion = AvionService.selectParId(connection, idAvion);
+                vol = new Vol(id, avion, dateDepart, duree, heureReservationAvantVol, heureAnnulatioReservationAvantVol);
             }
         }
         catch (Exception e) {
@@ -160,7 +164,7 @@ public class VolDAO {
     }
 
     //==============================================================================
-    public void update(Connection connection, Vol vol, Integer idVol) throws Exception {
+    public static void update(Connection connection, Vol vol, Integer idVol) throws Exception {
         Boolean estOuvert = false;
         PreparedStatement preparedStatement = null;
 
@@ -169,10 +173,11 @@ public class VolDAO {
                 estOuvert = true;
                 connection = db.Connection.getConnectionBDD();
             }
+            connection.setAutoCommit(false);
             String sql = "UPDATE vol SET id_avion = ?, date_depart = ?, duree = ?, heure_reservation_avant_vol = ?, heure_annulation_reservation_avant_vol = ? where id = ?";
             preparedStatement = connection.prepareStatement(sql);
 
-            preparedStatement.setInt(1, vol.getAvion());
+            preparedStatement.setInt(1, vol.getAvion().getId());
             preparedStatement.setTimestamp(2, vol.getDateDepart());
             preparedStatement.setDouble(3, vol.getDuree());
             preparedStatement.setInt(4, vol.getHeureReservationAvantVol());
@@ -209,12 +214,14 @@ public class VolDAO {
                 estOuvert = true;
                 connection = db.Connection.getConnectionBDD();
             }
+            connection.setAutoCommit(false);
             String sql = "DELETE FROM vol where id = ?";
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setInt(1, id);
 
             preparedStatement.executeUpdate();
+            connection.commit();
         }
         catch (Exception e) {
             if(connection != null) connection.rollback();
