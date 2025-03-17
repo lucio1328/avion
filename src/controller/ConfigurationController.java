@@ -1,7 +1,5 @@
 package controller;
 
-import framework.ModelView;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -9,7 +7,9 @@ import entite.Vol;
 import framework.Annotation.Auth;
 import framework.Annotation.Controller;
 import framework.Annotation.Param;
+import framework.Annotation.Post;
 import framework.Annotation.Url;
+import framework.ModelView;
 import service.VolService;
 
 @Controller
@@ -43,15 +43,11 @@ public class ConfigurationController {
         return modelView;
     }
 
-    @Url("/conf")
-    @Auth("admin")
-    public ModelView config(@Param("idVol") String idVol, @Param("heureReservationAvantVol") String heureReservationAvantVol,
-                            @Param("heureAnnulatioReservationAvantVol") String heureAnnulatioReservationAvantVol) throws SQLException {
+    @Url("/insert_config")
+    @Post
+    public ModelView insertConfig(@Param("idVol") String idVol, @Param("heureReservationAvantVol") String heureReservationAvantVol,
+                        @Param("heureAnnulatioReservationAvantVol") String heureAnnulatioReservationAvantVol) throws SQLException {
         Connection connection = db.Connection.getConnectionBDD();
-
-        System.out.println("Id Vol : " + idVol);
-        System.out.println(heureReservationAvantVol);
-        System.out.println(heureAnnulatioReservationAvantVol);
 
         try {
             if (idVol != null && heureReservationAvantVol != null && heureReservationAvantVol != null) {
@@ -68,14 +64,14 @@ public class ConfigurationController {
             e.printStackTrace();
         }
         finally {
-			if (connection != null) {
-				try {
-					connection.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		}
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         return config(idVol);
     }

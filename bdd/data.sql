@@ -78,6 +78,8 @@ INSERT INTO reservation_etat (id_reservation, id_statut, id_type_siege, nombre_p
     (5, 1, 1, 1, '2025-03-10 10:00:00'),
     (6, 1, 2, 3, '2025-04-01 19:00:00');
 
+INSERT INTO config_enfant (age_enfant, reduction) VALUES (12, 0.3);
+
 
 
 

@@ -101,3 +101,10 @@ CREATE TABLE reservation_etat (
     nombre_place INT NOT NULL,
     daty TIMESTAMP
 );
+
+-- Table configuration enfant
+CREATE TABLE config_enfant (
+    id SERIAL PRIMARY KEY,
+    age_enfant int not null,
+    reduction DECIMAL(10, 2)
+);

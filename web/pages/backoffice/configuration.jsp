@@ -17,8 +17,9 @@
 
     <% if (vol == null) { %>
         <p style="color: red;">Aucun vol sélectionné.</p>
-    <% } else { %>
-        <form action="conf" method="GET">
+    <% }
+    else { %>
+        <form action="insert_config" method="post">
             <input type="hidden" name="idVol" value="<%= vol.getId() %>">
 
             <label for="heureReservation">Temps limite de réservation (heures avant départ) :</label>

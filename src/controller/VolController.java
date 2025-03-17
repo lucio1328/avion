@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import entite.Avion;
+import entite.VilleDesservie;
 import entite.Vol;
-import framework.ModelView;
-import framework.Session;
 import framework.Annotation.Auth;
 import framework.Annotation.Controller;
 import framework.Annotation.Param;
 import framework.Annotation.Url;
+import framework.ModelView;
+import framework.Session;
 import service.AvionService;
 import service.VolService;
 
@@ -57,6 +59,9 @@ public class VolController {
 
         try {
             List<Vol> vols = VolService.select(connection);
+            List<Avion> avions = AvionService.select(connection);
+            // List<VilleDesservie> villeDesservies = VilleDesservie
+
             modelView.add("vols", vols);
         }
         catch (Exception e) {

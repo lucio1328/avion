@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import dao.RoleDAO;
 import entite.Role;
 import entite.User;
-import framework.ModelView;
-import framework.Session;
 import framework.Annotation.Controller;
 import framework.Annotation.Param;
 import framework.Annotation.Post;
 import framework.Annotation.Url;
+import framework.ModelView;
+import framework.Session;
 import service.UserService;
 
 @Controller

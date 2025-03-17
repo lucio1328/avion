@@ -1,10 +1,20 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib\\framework.jar",
+        "d:\\Lucio\\S5-S6\\MrNaina\\avion\\lib\\servlet-api.jar",
+        "d:\\Lucio\\S5-S6\\MrNaina\\avion\\lib\\postgresql-42.6.0.jar"
     ],
     "cSpell.words": [
+        "accueil",
+        "ajouter",
+        "Annulatio",
+        "Avant",
+        "backoffice",
+        "heure",
         "liste"
     ]
 }

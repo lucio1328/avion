@@ -4,6 +4,52 @@
     List<Vol> vols = (List<Vol>) request.getAttribute("vols");
 %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/liste_vol.css">
+<div>
+    <form action="search_vols" method="get">
+        <label for="avion">Avion :</label>
+        <select name="avion" id="avion">
+            <option value="">--Sélectionner un avion--</option>
+            <% 
+                List<Avion> avions = (List<Avion>) request.getAttribute("avions");
+                for (Avion avion : avions) {
+            %>
+                <option value="<%= avion.getId() %>"><%= avion.getModele().getLibelle() %></option>
+            <% } %>
+        </select>
+        <br>
+
+        <label for="date_depart_start">Date de départ (Début) :</label>
+        <input type="date" name="date_depart_start" id="date_depart_start">
+        <br>
+
+        <label for="date_depart_end">Date de départ (Fin) :</label>
+        <input type="date" name="date_depart_end" id="date_depart_end">
+        <br>
+
+        <label for="duree_min">Durée minimale (h) :</label>
+        <input type="number" name="duree_min" id="duree_min" step="0.1">
+        <br>
+
+        <label for="duree_max">Durée maximale (h) :</label>
+        <input type="number" name="duree_max" id="duree_max" step="0.1">
+        <br>
+
+        <label for="ville">Ville desservie :</label>
+        <select name="ville" id="ville">
+            <option value="">--Sélectionner une ville--</option>
+            <%
+                // Récupérer la liste des villes depuis la base de données pour l'affichage dans le select
+                List<VilleDesservie> villes = (List<VilleDesservie>) request.getAttribute("villes");
+                for (VilleDesservie ville : villes) {
+            %>
+                <option value="<%= ville.getId() %>"><%= ville.getNom() %></option>
+            <% } %>
+        </select>
+        <br>
+
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
 <div class="content-wrapper">
     <div class="page-header">
         <h2 class="welcome-title">Liste des vols</h2>
@@ -44,6 +90,7 @@
                                             <a href="configuration?idVol=<%= vol.getId() %>">🛠 Configurer</a>
                                             <a href="#">👁 Voir détails</a>
                                             <a href="#">✏ Modifier</a>
+                                            <a href="ajouter_promotion?idVol=<%= vol.getId() %>">🎟 Ajouter promotion</a>
                                             <a href="#" onclick="confirmDelete(<%= vol.getId() %>)" class="delete-btn">❌ Supprimer</a>
                                         </div>
                                     </div>

@@ -1,8 +1,4 @@
-import java.sql.Timestamp;
-
-import dao.VolDAO;
-import entite.Vol;
-import util.PasswordUtil;
+import db.Connection;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -13,5 +9,12 @@ public class App {
         // System.out.println(VolDAO.insert(vol));
 
         // System.out.println(PasswordUtil.encryptPassword("hello"));
+
+        // try {
+        //     Connection.getConnectionBDD();
+        // }
+        // catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        // }
     }
 }

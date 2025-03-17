@@ -2,17 +2,11 @@ package entite;
 
 import java.sql.Date;
 
-import framework.Annotation.NotNull;
-
 public class User {
     Integer id;
     String nom, prenom;
     Date dateNaissance;
-
-    @NotNull
     String login;
-
-    @NotNull
     String mdp;
     Integer role;
 
